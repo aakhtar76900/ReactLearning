@@ -17,7 +17,7 @@ var IndecisionApp = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
     _this.state = {
-      options: ["Seb", "Kimi", "Leclerc"]
+      options: []
     };
 
     _this.handleRemoveAll = _this.handleRemoveAll.bind(_this);
@@ -88,6 +88,26 @@ var IndecisionApp = function (_React$Component) {
         };
       });
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log("did mount");
+      var jsonOptions = JSON.parse(localStorage.getItem("options"));
+      if (jsonOptions) {
+        this.setState(function (prevState) {
+          return { options: prevState.options.concat(jsonOptions) };
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProp, prevState) {
+      console.log("did update");
+      if (prevState.options.length != this.state.options.length) {
+        var jsonOptions = JSON.stringify(this.state.options);
+        localStorage.setItem("options", jsonOptions);
+      }
+    }
   }]);
 
   return IndecisionApp;
@@ -111,7 +131,7 @@ var Header = function Header(props) {
 };
 
 Header.defaultProps = {
-  title: "App Course!"
+  title: "App Courses!"
 };
 
 var Action = function Action(props) {
@@ -148,9 +168,11 @@ var Option = function Option(props) {
     props.option,
     React.createElement(
       "button",
-      { onClick: function onClick() {
+      {
+        onClick: function onClick() {
           props.removeOption(props.option);
-        } },
+        }
+      },
       "Remove"
     )
   );

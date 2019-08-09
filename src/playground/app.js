@@ -2,7 +2,7 @@ class IndecisionApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: ["Seb", "Kimi", "Leclerc"]
+      options: []
     };
 
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
@@ -61,6 +61,23 @@ class IndecisionApp extends React.Component {
       options: prevState.options.filter(option => option != optionToRemove)
     }));
   }
+  componentDidMount() {
+    console.log("did mount");
+    const jsonOptions = JSON.parse(localStorage.getItem("options"));
+    if (jsonOptions) {
+      this.setState(prevState => {
+        return { options: prevState.options.concat(jsonOptions) };
+      });
+    }
+  }
+
+  componentDidUpdate(prevProp, prevState) {
+    console.log("did update");
+    if (prevState.options.length != this.state.options.length) {
+      const jsonOptions = JSON.stringify(this.state.options);
+      localStorage.setItem("options", jsonOptions);
+    }
+  }
 }
 
 const Header = props => {
@@ -73,7 +90,7 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  title: "App Course!"
+  title: "App Courses!"
 };
 
 const Action = props => {
@@ -103,8 +120,14 @@ const Options = props => {
 const Option = props => {
   return (
     <div>
-      {props.option} 
-      <button onClick={()=>{props.removeOption(props.option)}}>Remove</button>
+      {props.option}
+      <button
+        onClick={() => {
+          props.removeOption(props.option);
+        }}
+      >
+        Remove
+      </button>
     </div>
   );
 };
