@@ -7,20 +7,28 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server public/",
     "build": "webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
+    "dev-server": "webpack-dev-server"
   },
   "author": "Zib",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-react": "^6.24.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
     "live-server": "^1.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-modal": "^3.9.1",
+    "style-loader": "^1.0.0",
     "validator": "^11.1.0",
-    "webpack": "^3.1.0"
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5"
   }
 }
